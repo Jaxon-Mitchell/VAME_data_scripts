@@ -18,7 +18,6 @@ motifData = motifData(2:end, :);
 % starts at one, add 1 to the motifs to make consistent with Matlab indexing
 motifData(:,2) = motifData(:, 2) + 1;
 
-
 % Search through the whole array to find what the biggest motif number is,
 % noting that for n motifs they are indexed from 0 to n-1
 totalMotifs = 0;
@@ -39,7 +38,6 @@ for motif = 1:totalMotifs
     motifTiming.("motif" + num2str(motif)) = 0;
 end
 
-
 % Init the first motif in the sequence
 currentMotif = motifData(1,2);
 motifStartFrame = 1;
@@ -54,8 +52,6 @@ for frame = 1:size(motifData, 1)
         % Determine, in seconds, how long the motif lasted for
         motifTime = (motifEndFrame - motifStartFrame) / frameRate;
         motifTiming.("motif" + num2str(currentMotif))(end+1) = motifTime;
-
-        
         % Add change onto the transition matrix
         transitionMatrix(currentMotif, motif) = transitionMatrix(currentMotif, motif) + 1;
         % Update what the current motif is
@@ -77,11 +73,26 @@ end
 % Normalise the transition matrix relative to the amount of transitions
 % made for each motif
 transitionMatrixNormalised = zeros(totalMotifs);
-
 for motif = 1:totalMotifs
     transitions = sum(transitionMatrix(motif,:));
     transitionMatrixNormalised(motif, :) = transitionMatrix(motif, :) / transitions; 
 end
 
+% Plot our brand new transition matrices onto some figures!
+transition = heatmap(transitionMatrix);
+transitionNormalised = heatmap(transitionMatrixNormalised);
 
+% Plot the timing data onto some boxplots too! :D
+% Start by inititalising our timing data and grouping information
+xData = motifTiming.motif1';
+groupData = ones(size(motifTiming.motif1'));
+% Then loop over all motifs and do the same (Note how we use a transposed
+% matrix to put it into a format that boxplot() doesn't complain about)
+for motif = 2:totalMotifs
+    xData = [xData; motifTiming.("motif" + num2str(motif))']; %#ok<AGROW> Supressing as it's too annoying to fix rn >:(
+    groupData = [groupData; motif.*ones(size(motifTiming.("motif" + num2str(motif))'))]; %#ok<AGROW>
+end
+
+boxplot(xData, groupData);
+ylim([0 (max(xData) + 1)]);
 
