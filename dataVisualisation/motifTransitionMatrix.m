@@ -79,7 +79,9 @@ for motif = 1:totalMotifs
 end
 
 % Plot our brand new transition matrices onto some figures!
+figure
 transition = heatmap(transitionMatrix);
+figure
 transitionNormalised = heatmap(transitionMatrixNormalised);
 
 % Plot the timing data onto some boxplots too! :D
@@ -93,6 +95,7 @@ for motif = 2:totalMotifs
     groupData = [groupData; motif.*ones(size(motifTiming.("motif" + num2str(motif))'))]; %#ok<AGROW>
 end
 
+figure
 boxplot(xData, groupData);
 ylim([0 (max(xData) + 1)]);
 
