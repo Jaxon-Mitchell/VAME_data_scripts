@@ -57,7 +57,10 @@ for stimulus = 1:length(stimuli)
         end
     end
     % Normalise our bar data into a percentage variable
-
+    for bucket = 1:size(behaviourAnalysis(1))
+        bucketSum = sum(behaviourAnalysis(bucket, :));
+        behaviourAnalysis(bucket, :) = behaviourAnalysis / bucketSum;
+    end
     % Plot our average behaviour data here!
     figure
     bar(behaviourAnalysis,'stacked')
