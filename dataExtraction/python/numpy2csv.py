@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 import os
 
-inputDirectory = "/home/hoverfly/Documents/Behaviour/allBehaviourAnalysis/behaviour_analysis_loomingStimuli-Sep11-2024/results/"
-outputDirectory = "/home/hoverfly/Documents/Behaviour/allBehaviourAnalysis/behaviour_analysis_loomingStimuli-Sep11-2024/csvOutput/"
+inputDirectory = "/home/hoverfly/Documents/Behaviour/allBehaviourAnalysis/behaviour_analysis_loomingStimuli-Sep23-2024/results/"
+outputDirectory = "/home/hoverfly/Documents/Behaviour/allBehaviourAnalysis/behaviour_analysis_loomingStimuli-Sep23-2024/csvOutput/"
 
 folders = os.listdir(inputDirectory)
 
@@ -26,6 +26,3 @@ for folder in folders:
                 dataFrame.to_csv(outputDirectory + expFile.split(".npy")[0] + ".csv")
             break
         layer += 1
-
-
-

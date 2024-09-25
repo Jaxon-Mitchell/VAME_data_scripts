@@ -2,9 +2,9 @@
 % analysis.
 
 % Input amount of motifs used
-noMotifs = 20;
+noMotifs = 10;
 % Input folder to videos to organise
-filePath = '/home/hoverfly/Documents/Behaviour/allBehaviourAnalysis/Results';
+filePath = '/home/hoverfly/Documents/Behaviour/flyingBehaviourAnalysis/motifVideos';
 
 videos = dir([filePath '/*.avi']);
 

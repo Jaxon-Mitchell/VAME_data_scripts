@@ -4,8 +4,12 @@
 % We want to do this over multiple videos, so get user to select the folder
 % containing all VAME results, so the script can loop over each folder
 
-% This is where I test using a single file!
-[file, location] = uigetfile('*.csv');
+isLoaded = false;
+
+if isLoaded ~= true
+    % This is where I test using a single file!
+    [file, location] = uigetfile('*.csv');
+end
 
 % Define frame rate
 frameRate = 100;
@@ -83,6 +87,10 @@ figure
 transition = heatmap(transitionMatrix);
 figure
 transitionNormalised = heatmap(transitionMatrixNormalised);
+figure;
+% Create a markov chain model
+mc = dtmc(transitionMatrixNormalised);
+graphplot(mc,ColorEdges=true);
 
 % Plot the timing data onto some boxplots too! :D
 % Start by inititalising our timing data and grouping information
